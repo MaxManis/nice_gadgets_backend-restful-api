@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const sl = require('serverless-http');
 require('dotenv/config');
 
 const PORT = process.env.PORT || 8080;
@@ -34,3 +35,5 @@ app.get('/goods', (request, response) => {
 app.listen(PORT, () => {
     console.log(`Server is running on - http://localhost:${PORT}`)
 });
+
+export default sl(app);
