@@ -1,0 +1,37 @@
+{
+  "name": "nice_gadgets_backend-restful-api",
+  "version": "0.2.1",
+  "description": "RESTful API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fe-aug22-team-Harold/nice_gadgets_backend-RESTful-API.git"
+  },
+  "keywords": [
+    "JS",
+    "Express",
+    "NodeJS",
+    "SQL",
+    "REST",
+    "API"
+  ],
+  "author": "team-Harold",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fe-aug22-team-Harold/nice_gadgets_backend-RESTful-API/issues"
+  },
+  "homepage": "https://github.com/fe-aug22-team-Harold/nice_gadgets_backend-RESTful-API#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.26.0",
+    "uuid": "^9.0.0"
+  }
+}
