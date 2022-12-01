@@ -11,7 +11,9 @@ const router = express.Router();
 const controller = new phonesController();
 const PORT = process.env.PORT || 8000;
 
-app.use(cors());
+app.use(cors({
+    origin: [process.env.CLIENT_DEV_URL, process.env.CLIENT_PROD_URL],
+}));
 app.use(express.json());
 app.use(router);
 
