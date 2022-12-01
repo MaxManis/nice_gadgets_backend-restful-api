@@ -1,14 +1,19 @@
+'use strict';
+
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const { phones } = require('./phones');
 require('dotenv/config');
+const { phonesController } = require("./phonesAPI/phonesController");
 
 const app = express();
 const router = express.Router();
+const controller = new phonesController();
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use(router);
 
 router.get('/', (request, response) => {
     try {
@@ -18,15 +23,22 @@ router.get('/', (request, response) => {
     }
 });
 
-router.get('/goods', (request, response) => {
-    try {
-        response.statusCode = 200;
-        response.json(phones);
-    } catch (e) {
-        response.sendStatus(500);
-    }
+router.get('/products', controller.getAllPhones);
+
+router.get('/products/:phoneid', controller.getOnePhone);
+
+router.post('/products', controller.getOnePhone);
+
+router.patch('/products/:phoneid', controller.getOnePhone);
+
+router.delete('/products/:phoneid', controller.getOnePhone);
+
+// app.use('/.netlify/functions/server', router);
+// module.exports.handler = serverless(app);
+
+app.listen(PORT, () => {
+    console.log(`running on - http://localhost:${PORT}`);
 });
 
-app.use('/.netlify/functions/server', router);
-
-module.exports.handler = serverless(app);
+// http://localhost:9000/.netlify/functions/server
+// http://localhost:9000/.netlify/functions/server/products-create

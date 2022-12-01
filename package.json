@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js",
+    "st": "nodemon src/server.js",
     "build": "./node_modules/.bin/netlify-lambda build src",
-    "st": "./node_modules/.bin/netlify-lambda serve src"
+    "start": "./node_modules/.bin/netlify-lambda serve src"
   },
   "repository": {
     "type": "git",
