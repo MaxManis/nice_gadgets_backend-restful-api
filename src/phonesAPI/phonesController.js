@@ -1,10 +1,34 @@
 const { Phones } = require("../models/phones");
+const { Op } = require("sequelize");
 require('dotenv/config');
 
 class phonesController {
     async getAllPhones(request, response) {
         try {
-            const phonesFromDB = await Phones.findAll();
+            const searchOptions = {};
+            const { page, onPage, newest } = request.query;
+
+            if (page && onPage) {
+                const end = +page * +onPage;
+                const start = end - +onPage;
+
+                searchOptions.where = {
+                    id: {
+                        [Op.and]: {
+                            [Op.gt]: String(start),
+                            [Op.lte]: String(end)
+                        },
+                    },
+                };
+            } else if (newest) {
+                searchOptions.where = {
+                    year: {
+                        [Op.eq]: 2019,
+                    },
+                };
+            }
+
+            const phonesFromDB = await Phones.findAll(searchOptions);
 
             response.statusCode = 200;
             response.json(phonesFromDB);
@@ -34,7 +58,7 @@ class phonesController {
         }
     }
 
-    createPhone(request, response) {
+    async createPhone(request, response) {
         try {
             response.statusCode = 200;
         } catch (e) {
@@ -42,7 +66,7 @@ class phonesController {
         }
     }
 
-    updatePhone(request, response) {
+    async updatePhone(request, response) {
         try {
             response.statusCode = 200;
         } catch (e) {
