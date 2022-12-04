@@ -51,7 +51,28 @@ class phonesController {
             const { phoneid } = request.params;
             const currentPhone = await Phones.findOne({
                 where: {
-                    id: phoneid,
+                    id: +phoneid,
+                }
+            });
+
+            if (!currentPhone) {
+                response.statusCode = 404;
+                response.json({ error: 'doesnt exist' });
+            }
+
+            response.statusCode = 200;
+            response.json(currentPhone);
+        } catch (e) {
+            response.sendStatus(500);
+        }
+    }
+
+    async getOnePhoneBySlug(request, response) {
+        try {
+            const { phoneSlug } = request.params;
+            const currentPhone = await Phones.findOne({
+                where: {
+                    itemId: phoneSlug,
                 }
             });
 

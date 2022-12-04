@@ -19,7 +19,10 @@ app.use(router);
 
 router.get('/', (request, response) => {
     try {
-        response.send('Hello from Nice Gadgets Back-End SERVER!');
+        response.send(
+          'Welcome to Nice-Gadgets Back-End SERVER!'
+          + '\n visit us here - https://fe-aug22-team-harold.github.io/nice_gadgets_FE'
+        );
     } catch (e) {
         response.sendStatus(500);
     }
@@ -28,6 +31,8 @@ router.get('/', (request, response) => {
 router.get('/products', controller.getAllPhones);
 
 router.get('/products/:phoneid', controller.getOnePhone);
+
+router.get('/products/one/:phoneSlug', controller.getOnePhoneBySlug);
 
 router.post('/products', controller.getOnePhone);
 
