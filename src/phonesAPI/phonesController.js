@@ -6,7 +6,7 @@ class phonesController {
     async getAllPhones(request, response) {
         try {
             const searchOptions = {};
-            const { page, onPage, newest } = request.query;
+            const { page, onPage, newest, cheapest } = request.query;
 
             if (page && onPage) {
                 const end = +page * +onPage;
@@ -15,8 +15,8 @@ class phonesController {
                 searchOptions.where = {
                     id: {
                         [Op.and]: {
-                            [Op.gt]: String(start),
-                            [Op.lte]: String(end)
+                            [Op.gt]: start,
+                            [Op.lte]: end
                         },
                     },
                 };
@@ -26,6 +26,15 @@ class phonesController {
                         [Op.eq]: 2019,
                     },
                 };
+            } else if (cheapest) {
+                searchOptions.where = {
+                    price: {
+                        [Op.lt]: 700,
+                    },
+                };
+                searchOptions.order = [
+                    ['price', 'ASC'],
+                ]
             }
 
             const phonesFromDB = await Phones.findAll(searchOptions);
