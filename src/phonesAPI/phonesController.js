@@ -88,6 +88,33 @@ class phonesController {
         }
     }
 
+    async getSamePhonesBySlug(request, response) {
+        try {
+            const { phoneSlug } = request.params;
+            const currentPhones = await Phones.findAll({
+                where: {
+                    itemId: {
+                        [Op.substring]: phoneSlug,
+                    },
+                },
+            });
+
+            if (!currentPhones) {
+                response.statusCode = 404;
+                response.json({ error: 'doesnt exist' });
+            }
+
+            const exactlySameModels = currentPhones.filter(item => {
+                return item.image.split('/')[2] === phoneSlug;
+            });
+
+            response.statusCode = 200;
+            response.json(exactlySameModels);
+        } catch (e) {
+            response.sendStatus(500);
+        }
+    }
+
     async createPhone(request, response) {
         try {
             response.statusCode = 200;
