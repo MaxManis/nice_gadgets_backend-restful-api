@@ -1,3 +1,5 @@
+'use strict';
+
 const { Phones } = require("../models/phones");
 const { Op } = require("sequelize");
 require('dotenv/config');
