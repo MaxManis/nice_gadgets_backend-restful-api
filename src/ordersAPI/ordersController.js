@@ -25,7 +25,7 @@ class ordersController {
       });
       await sendUserOrderDetails(useremail, orderList.length, total);
 
-      response.sendStatus(201);
+      response.statusCode = 201;
       response.send(newOrder);
     } catch (e) {
       response.sendStatus(500);
