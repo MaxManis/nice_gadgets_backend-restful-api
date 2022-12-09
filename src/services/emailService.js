@@ -24,8 +24,8 @@ const sendEmail = async ({ mailTo, subject, content }) => {
 };
 
 const sendUserActivationLink = (mailTo, token) => {
-  const link = `${process.env.CLIENT_PROD_URL}/#/activate/${token}`;
-  const link2 = `${process.env.CLIENT_DEV_URL}/nice_gadgets_FE/#/activate/${token}`;
+  const link = `${process.env.CLIENT_PROD_URL}/nice_gadgets_FE/#/activate/${token}`;
+  const link2 = `${process.env.CLIENT_DEV_URL}/#/activate/${token}`;
 
   return sendEmail({
     mailTo,
