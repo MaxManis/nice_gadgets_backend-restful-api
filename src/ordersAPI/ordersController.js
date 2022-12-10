@@ -11,9 +11,13 @@ class ordersController {
       const { userid, useremail, orderList, total, note } = request.body;
       const currentUser = await userServices.getByEmail(useremail);
 
-      if (!userid || !useremail || !orderList || !total || !currentUser) {
+      if (!userid || !useremail || !orderList
+          || !orderList.length|| !total || !currentUser
+        ) {
         response.statusCode = 401;
         response.send({ error: 'invalid data'});
+
+        return;
       }
 
       const newOrder = await Orders.create({
