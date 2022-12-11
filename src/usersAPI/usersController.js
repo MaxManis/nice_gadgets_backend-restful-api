@@ -59,13 +59,15 @@ class usersController {
         return;
       }
 
+      // console.log(request.cookies)
+      // console.log(request.signedCookies)
+
       const userData = userServices.normalize(currentUser);
       const accessToken = jwtService.generateAccessToken(userData);
 
       response.cookie('token', accessToken, {
         httpOnly: false,
-        singed: true,
-        domain: 'https://fe-aug22-team-harold.github.io/',
+        signed: true,
       });
 
       response.statusCode = 200;
