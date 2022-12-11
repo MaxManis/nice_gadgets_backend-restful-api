@@ -6,6 +6,7 @@ const jwtService = require("../services/jwtService");
 const { sendUserActivationLink } = require('../services/emailService');
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
+const cookieParser = require('cookie-parser');
 require('dotenv/config');
 
 class usersController {
@@ -62,13 +63,15 @@ class usersController {
       const accessToken = jwtService.generateAccessToken(userData);
 
       response.cookie('token', accessToken, {
-        sameSite: 'none',
-        secure: true,
+        httpOnly: false,
+        singed: true,
+        domain: 'https://fe-aug22-team-harold.github.io/',
       });
 
       response.statusCode = 200;
       response.send(userData);
     } catch (e) {
+      console.log(e);
       response.sendStatus(500);
     }
   }

@@ -7,7 +7,7 @@ const cookiesParser = require('cookie-parser');
 const router = express.Router();
 const users = new usersController();
 
-router.use(cookiesParser());
+router.use(cookiesParser(process.env.COOKIE_SECRET_KEY));
 
 router.post('/singup', users.singUp);
 
