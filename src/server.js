@@ -2,17 +2,13 @@
 
 const express = require('express');
 const cors = require('cors');
-const serverless = require('serverless-http');
 require('dotenv/config');
-const { phonesController } = require("./phonesAPI/phonesController");
-const { usersController } = require("./usersAPI/usersController");
-const { ordersController } = require("./ordersAPI/ordersController");
+const ordersRouter = require('./ordersAPI/ordersRouter');
+const phonesRouter = require('./phonesAPI/phonesRouter');
+const usersRouter = require('./usersAPI/userRouter');
 
 const app = express();
 const router = express.Router();
-const phones = new phonesController();
-const users = new usersController();
-const orders = new ordersController();
 const PORT = process.env.PORT || 8000;
 
 app.use(cors({
@@ -21,6 +17,7 @@ app.use(cors({
 app.use(express.json());
 app.use(router);
 
+// Home page
 router.get('/', (request, response) => {
     try {
         response.send(
@@ -32,45 +29,16 @@ router.get('/', (request, response) => {
     }
 });
 
-router.get('/products', phones.getAllPhones);
+// Products/phones
+app.use('/products', phonesRouter);
 
-router.get('/products/:phoneid', phones.getOnePhone);
-
-router.get('/products/one/:phoneSlug', phones.getOnePhoneBySlug);
-
-router.get('/products/same/:phoneSlug', phones.getSamePhonesBySlug);
-
-router.post('/products', phones.getOnePhone);
-
-router.patch('/products/:phoneid', phones.getOnePhone);
-
-router.delete('/products/:phoneid', phones.getOnePhone);
-
-// ==================
 // Order:
-router.post('/orders', orders.createOrder);
+app.use('/orders', ordersRouter);
 
-router.get('/orders', orders.getAllOrders);
+// Auth/Login/Register users:
+app.use('/users', usersRouter)
 
-router.get('/orders/:userid', orders.getOrdersByUser);
-
-// ==================
-// Auth/Login/Register:
-router.post('/users/singup', users.singUp);
-
-router.post('/users/login', users.login);
-
-router.get('/users/logout', users.logout);
-
-router.get('/users/activate/:token', users.activate);
-
-// =================
-
-// app.use('/.netlify/functions/server', router);
-// module.exports.handler = serverless(app);
-
+// server init
 app.listen(PORT, () => {
     console.log(`running on - http://localhost:${PORT}`);
 });
-
-// http://localhost:9000/.netlify/functions/server
