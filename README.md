@@ -3,6 +3,10 @@
 ## Nice Gadgets API Server (with Node.js(Express) and cloud claster of PostgresSQL)
 > ⚠️ **Server built on NodeJS, Express, PostgresSQL(cloud claster), SequelizeORM, JWT, BCrypt, Cookies, .env, Nodemailer etc.**
 
+## Links:
+- [Nice Gadgets Deployed](https://fe-aug22-team-harold.github.io/nice_gadgets_FE)
+- [Frontend source code](https://github.com/fe-aug22-team-Harold/nice_gadgets_FE)
+
 ## Endpoints:
 **products:**
 /products | GET - Get all phones.
