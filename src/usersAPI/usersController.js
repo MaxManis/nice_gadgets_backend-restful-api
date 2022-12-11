@@ -68,6 +68,8 @@ class usersController {
       response.cookie('token', accessToken, {
         httpOnly: false,
         signed: true,
+        secure: true, 
+        sameSite: 'none'
       });
 
       response.statusCode = 200;
